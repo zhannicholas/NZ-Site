@@ -1,0 +1,131 @@
+baseURL = "https://zhannicholas.github.io"
+title = "Nicholas Zhan"
+# for smart copyright line, leave this blank and check [params.copyright]
+copyright = ""
+
+# auto-detect Chinese/Japanese/Korean Languages in the content. 
+hasCJKLanguage = "true"
+
+theme = "minimo"
+
+disqusShortname = ""
+googleAnalytics = ""
+
+Paginate = 5
+preserveTaxonomyNames = true
+
+enableRobotsTXT = true # generate robots.txt
+
+# Syntax Highlighting ( https://gohugo.io/content-management/syntax-highlighting/ )
+pygmentsCodefences = true
+
+enableEmoji = true
+
+# Missing translations will default to this content language
+defaultContentLanguage = "zh-cn"
+
+[params.info]
+description = "Java Developer, Long-distance Runner, Cyclist"
+title404 = "Nothing's here!"
+
+[params.assets]
+favicon = "favicon.ico"
+customCSS = ["css/custom.css"]
+customJS = ["js/custom.js"]
+gopher = "" # used in 404 template ( Generator: https://gopherize.me )
+
+[params.copyright]
+prefix = ""
+holder = "Nicholas Zhan"
+startYear = "2018"
+suffix = ""
+
+[params.settings]
+# date & time format: https://golang.org/pkg/time/
+dateFormat = "2006, Jan 02"
+listDateFormat = "2006, Jan 02"
+archiveDateFormat = "Jan 02"
+hideEntryNavigation = ["page"] # boolean / array of sections
+showReadingTime = true
+taxonomyCloudShuffle = true
+accentColor = "#ffcd00"
+hideMainMenu = false
+
+[params.sidebar]
+enable = true
+
+[params.widgets]
+header = ["breadcrumbs"]
+homepage = ["recent_posts"]
+sidebar = ["about","sidebar_menu","taxonomy_cloud"]
+footer = ["social_menu"]
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+[params.opengraph.twitter]
+page = "" # Twitter page username
+
+[params.seo]
+# Title Separator: - – — · • * ⋆ | ~ « » < >
+titleSeparator = "•"
+
+[params.social]
+codepen = "zhannicholas"
+email = "zhan_nicholas@outlook.com"
+facebook = "zhannicholas"
+github = "zhannicholas"
+gitlab = "zhannicholas"
+instagram = "zhanicholas"
+linkedin = "伟伟-詹-27871a104"
+twitter = "nicholas132817"
+telegram = "zhannicholas"
+google_scholar = "qc6CJjYAAAAhfohgoJ"
+
+[params.comments]
+enable = false
+
+[params.comments.staticman]
+enable = false
+apiEndpoint = "https://api.staticman.net/v2/entry"
+maxDepth = 2
+
+[params.comments.staticman.github]
+username = "zhannicholas"
+repository = "zhannicholas.github.io"
+branch = "master"
+
+[params.search]
+client = "fuse" # algolia / fuse / lunr
+
+[taxonomies]
+author = "authors"
+category = "categories"
+series = "series"
+tag = "tags"
+
+[permalinks]
+page = "/:slug/"
+# non-content menu
+[[menu.main]]
+name = "Repo"
+weight = -10
+identifier = "repository"
+url = "https://github.com/zhannicholas/blog"
+
+[blackfriday]
+hrefTargetBlank = true
+
+[languages]
+# edit this block for your own language
+[languages.en]
+lang = "en"
+languageName = "English"
+weight = 1
+
+[languages.zh-CN]
+lang = "zh-cn"
+languageName = "Chinese"
+weight = 1
