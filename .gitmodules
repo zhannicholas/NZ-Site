@@ -1,0 +1,7 @@
+[submodule "themes/minimo"]
+	path = themes/minimo
+	url = https://github.com/zhannicholas/minimo
+[submodule "public"]
+	path = public
+	url = https://github.com/zhannicholas/zhannicholas.github.io.git
+	branch = main
