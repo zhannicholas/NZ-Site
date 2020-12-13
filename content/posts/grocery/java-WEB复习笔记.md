@@ -434,9 +434,3 @@ Servlet监听器是Servlet规范中定义的一种特殊的类，用于监听Web
 2. HttpSessionActivationListener接口
     - 绑定到HttpSession对象的对象将要随HttpSession对象被钝化之前，Web浏览器此时会调用`sessionWillPassivate()`方法。
     - 绑定到HttpSession对象的对象将要随HttpSession对象被活化之后，Web浏览器此时会调用`sessionDidActive()`方法。
-
-<!-- ## 文件上传和下载
-
-### 基于表单的文件上传
-
-使用表单元素`<input type="file">`可以完成基于表单的文件上传操作，需要指定表单的`enctype`属性值为`multipart/form-data`，表示表单以二进制传输数据。默认为`application/x-www-form-urlencoded`，这种编码方案使用有限的字符集，不适合大容量的二进制数据或者包含了非ASCII字符的文本。 -->

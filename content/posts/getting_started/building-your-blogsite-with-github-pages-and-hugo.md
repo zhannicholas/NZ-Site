@@ -115,7 +115,7 @@ hugo setver -D -t hyde
 
 - 如果你没有github账号的话，那么首先注册[github](https://github.com)。千万别忘了你的用户名，后面会用上。假设我的用户名是sarkar。
 - [登录github](https://github.com/login), 建立两个repository。一个是工程仓库（假定为mysite), 用来存放hugo内容和其他的资源文件。另一个就是```sarkar.github.io```, 这就是用来放你的网站内容的地方了(记得把这里的和以后的```sarkar```都换成你自己的github用户名)。
-- 回到网站的根目录下，也就是mysite目录，在这之前打开你准备发布的```.md```文件，将```draft: true```改为```draft: false```。这样就可以正式的发布内容了，不再是草稿。然后执行命令：
+- 回到网站的根目录下，也就是mysite目录，在这之前打开你准备发布的```.md```文件，将```draft: false```改为```draft: false```。这样就可以正式的发布内容了，不再是草稿。然后执行命令：
 
 ```sh
 hugo -t hyde --baseUrl="https://sarkar.github.io"
