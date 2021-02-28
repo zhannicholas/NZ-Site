@@ -4,7 +4,7 @@ linkTitle: 设计模式的艺术
 menu:
   sidebar:
     name: 设计模式的艺术
-    parent: 阅读笔记
+    parent: 读书笔记
 weight: -250
 slug: 设计模式的艺术
 ---

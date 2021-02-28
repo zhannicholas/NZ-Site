@@ -10,7 +10,7 @@ draft: false
 toc: true
 ---
 ## 1.1 Introduction
-The nature of computers is described in [Stanford’s introductory course](http://www.stanford.edu/class/cs101/code-introduction.html) as:
+The nature of computers is described in [Stanford's introductory course](http://www.stanford.edu/class/cs101/code-introduction.html) as:
 
 *The fundamental equation of computers is: **`computer = powerful + stupid`***.
 

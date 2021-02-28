@@ -4,7 +4,7 @@ linkTitle: SICP in Python
 menu:
   sidebar:
     name: SICP in Python
-    parent: 阅读笔记
+    parent: 读书笔记
 weight: -250
 slug: sicp_in_python
 ---
