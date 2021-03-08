@@ -1,6 +1,6 @@
 ---
 date: "2020-12-13T19:52:15+08:00"
-title: "Design_concepts_for_engineers"
+title: "Design concepts for engineers"
 authors: ["zhannicholas"]
 categories:
   - 读书笔记
