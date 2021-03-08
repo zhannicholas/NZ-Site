@@ -113,7 +113,7 @@ page = "/:slug/"
 name = "Repo"
 weight = -10
 identifier = "repository"
-url = "https://github.com/zhannicholas/blog"
+url = "https://github.com/zhannicholas/NZ-Site"
 
 [blackfriday]
 hrefTargetBlank = true
