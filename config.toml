@@ -73,16 +73,16 @@ page = "" # Twitter page username
 titleSeparator = "•"
 
 [params.social]
-codepen = "zhannicholas"
+codepen = ""
 email = "zhan_nicholas@outlook.com"
-facebook = "zhannicholas"
+facebook = ""
 github = "zhannicholas"
-gitlab = "zhannicholas"
-instagram = "zhanicholas"
+gitlab = ""
+instagram = ""
 linkedin = "伟伟-詹-27871a104"
-twitter = "nicholas132817"
+twitter = ""
 telegram = "zhannicholas"
-google_scholar = "qc6CJjYAAAAhfohgoJ"
+google_scholar = ""
 
 [params.comments]
 enable = false
