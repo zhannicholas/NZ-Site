@@ -22,7 +22,7 @@ pygmentsCodefences = true
 enableEmoji = true
 
 # Missing translations will default to this content language
-defaultContentLanguage = "en"
+defaultContentLanguage = "zh-cn"
 
 [params.info]
 description = "Java Developer, Long-distance Runner, Cyclist"

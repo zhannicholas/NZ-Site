@@ -1,0 +1,155 @@
+[author]
+one = "作者"
+other = "作者"
+
+[authorsAvatar]
+other = "{{ .Author }}的头像"
+
+[by]
+other = "by"
+
+[cancel]
+other = "取消"
+
+[cancelComment]
+other = "取消评论"
+
+[category]
+one = "分类"
+other = "分类"
+
+[comment]
+other = "评论"
+
+[commentSubmissionErrorMessage]
+other = "出错了。无法提交你的评论。请再试一次。谢谢！"
+
+[commentSubmissionErrorTitle]
+other = "Yikes, Sorry!"
+
+[commentSubmissionSuccessMessage]
+other = "你的评论已提交。稍后将在页面展示!"
+
+[commentSubmissionSuccessTitle]
+other = "谢谢！"
+
+[commentsOnEntry]
+one = "Only {{ .Count }} comment on {{ .Title }}"
+other = "{{ .Count }} comments on {{ .Title }}"
+
+[contactViaEmail]
+other = "Contact via Email"
+
+[currentPage]
+other = "当前页"
+
+[email]
+other = "Email"
+
+[gopher]
+other = "Gopher"
+
+[goHome]
+other = "去主页..."
+
+[lastUpdated]
+other = "Last updated"
+
+[leaveAComment]
+other = "发表评论"
+
+[mainMenu]
+other = "主菜单"
+
+[name]
+other = "Name"
+
+[next]
+other = "下一个"
+
+[nextPage]
+other = "下一页"
+
+[nextPost]
+other = "下一篇"
+
+[noTerm]
+other = "Not a single {{ .Term }}!"
+
+[ok]
+other = "OK"
+
+[openAccountInNewTab]
+other = "Open {{ .Platform }} account in new tab"
+
+[page]
+other = "页面"
+
+[previous]
+other = "Previous"
+
+[previousPage]
+other = "上一页"
+
+[previousPost]
+other = "上一篇"
+
+[postedOn]
+other = "Posted on"
+
+[readingTime]
+one = "One min read"
+other = "{{ .Count }} mins read"
+
+[recentPosts]
+other = "近期文章"
+
+[reply]
+other = "回复"
+
+[replyToAuthor]
+other = "Reply to {{ .Author }}"
+
+[says]
+other = "says"
+
+[search]
+other = "搜索"
+
+[searchResultEmpty]
+other = "Nothing found!"
+
+[searching]
+other = "搜索中"
+
+[series]
+one = "Series"
+other = "Series"
+
+[sidebarMenu]
+other = "侧边栏菜单"
+
+[skipToContent]
+other = "跳到内容"
+
+[skipToMainMenu]
+other = "跳到主菜单"
+
+[socialMenu]
+other = "社交菜单"
+
+[submitComment]
+other = "Comment!"
+
+[tableOfContents]
+other = "目录"
+
+[tag]
+one = "标签"
+other = "标签"
+
+[toggleSidebar]
+other = "Toggle Sidebar"
+
+[website]
+other = "网站"
