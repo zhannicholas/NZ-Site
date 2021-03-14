@@ -3,5 +3,5 @@
 	url = https://github.com/zhannicholas/minimo
 [submodule "public"]
 	path = public
-	url = https://github.com/zhannicholas/zhannicholas.github.io.git
+	url = https://github.com/zhannicholas/zhannicholas.github.io
 	branch = main
