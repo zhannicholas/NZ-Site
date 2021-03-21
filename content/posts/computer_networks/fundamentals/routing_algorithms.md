@@ -3,9 +3,9 @@ date: "2020-12-13T16:34:55+08:00"
 title: "路由算法"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
-  - 计算机网络
+  - Networks
 draft: false
 toc: true
 ---

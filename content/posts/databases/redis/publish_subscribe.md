@@ -3,7 +3,7 @@ date: "2020-12-13T17:45:33+08:00"
 title: "Publish/Subscribe"
 authors: ["zhannicholas"]
 categories:
-  - 数据库
+  - DB
 tags:
   - Redis
 draft: false

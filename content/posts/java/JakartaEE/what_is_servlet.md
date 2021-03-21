@@ -3,7 +3,7 @@ date: "2020-12-13T18:07:45+08:00"
 title: "What is Servlet"
 authors: ["zhannicholas"]
 categories:
-  - JakartaEE
+  - Java
 tags:
   - JakartaEE
 draft: false

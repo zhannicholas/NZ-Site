@@ -4,9 +4,9 @@ date: 2018-06-29T10:44:26+08:00
 draft: false
 mathjax: true
 tags:
-  - 算法
-categories:
   - 算法导论
+categories:
+  - 读书笔记
 authors: ["zhannicholas"]
 ---
 

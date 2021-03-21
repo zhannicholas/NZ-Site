@@ -3,7 +3,7 @@ date: "2020-12-13T17:52:50+08:00"
 title: "Redis中的事务"
 authors: ["zhannicholas"]
 categories:
-  - 数据库
+  - DB
 tags:
   - Redis
 draft: false

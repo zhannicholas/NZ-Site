@@ -7,7 +7,7 @@ toc: true
 tags:
   - NiFi
 categories:
-  - NiFi
+  - 新手上路
 ---
 
 > 近段时间，工作中需要用到集群环境下的[Apache NiFi](https://nifi.apache.org/)。由于机器性能问题，笔者在自己的笔记本上搭建了只有一个节点的伪集群，用于测试。搭建过程中使用了外置的ZooKeeper。现在分享一下搭建过程，同时备忘。

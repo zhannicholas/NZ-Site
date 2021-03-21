@@ -3,7 +3,7 @@ date: "2020-12-13T17:15:44+08:00"
 title: "HTTP 报文"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
   - HTTP
 draft: false

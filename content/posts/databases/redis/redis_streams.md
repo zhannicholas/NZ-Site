@@ -3,7 +3,7 @@ date: "2020-12-13T17:49:38+08:00"
 title: "Redis Streams"
 authors: ["zhannicholas"]
 categories:
-  - 数据库
+  - DB
 tags:
   - Redis
 draft: false

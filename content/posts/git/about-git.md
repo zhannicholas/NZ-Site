@@ -3,6 +3,8 @@ title: "Git初探"
 date: 2018-05-30T15:56:02+08:00
 draft: false
 toc: true
+categories:
+  - Tools
 tags:
   - Git
 authors: ["zhannicholas"]

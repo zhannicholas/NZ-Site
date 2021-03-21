@@ -3,7 +3,7 @@ date: "2020-12-13T17:35:30+08:00"
 title: "事务"
 authors: ["zhannicholas"]
 categories:
-  - 数据库
+  - DB
 tags:
   - 数据库
 draft: false

@@ -3,9 +3,9 @@ date: "2020-12-13T16:06:22+08:00"
 title: "延迟与带宽"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
-  - 计算机网络
+  - Networks
 draft: false
 toc: true
 mathjax: true

@@ -3,10 +3,10 @@ title: "厄拉多筛法求素数"
 date: 2018-05-26T10:43:44+08:00
 draft: false
 author: ["zhannicholas"]
+categories:
+  - 读书笔记
 tags:
-  - 算法
-categories: 
- - C算法
+  - C算法
 ---
 
 # 筛法原理

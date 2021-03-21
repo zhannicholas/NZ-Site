@@ -3,7 +3,7 @@ date: "2020-12-13T17:25:35+08:00"
 title: "URI与资源"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
   - HTTP
 draft: false

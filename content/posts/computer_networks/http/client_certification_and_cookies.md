@@ -3,7 +3,7 @@ date: "2020-12-13T16:59:47+08:00"
 title: "客户端身份识别与Cookie"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
   - HTTP
 draft: false

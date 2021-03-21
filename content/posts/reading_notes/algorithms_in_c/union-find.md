@@ -3,11 +3,10 @@ title: "并查集"
 date: 2018-05-26T10:43:44+08:00
 draft: false
 author: ["zhannicholas"]
+categories:
+  - 读书笔记
 tags:
-  - 算法
-toc: True
-categories: 
- - C算法
+  - C算法
 ---
 
 记录一下最近学习的并查集。

@@ -3,9 +3,9 @@ date: "2020-12-13T15:44:47+08:00"
 title: "Ip寻址"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
-  - 计算机网络
+  - Networks
 draft: false
 toc: true
 ---

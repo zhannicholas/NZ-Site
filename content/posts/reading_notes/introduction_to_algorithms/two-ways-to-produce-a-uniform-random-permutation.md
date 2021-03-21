@@ -5,9 +5,9 @@ draft: false
 toc: true
 authors: ["zhannicholas"]
 tags:
-  - 算法
-categories:
   - 算法导论
+categories:
+  - 读书笔记
 ---
 
 > 许多随机算法通过排列给定的输入数组来使输入随机化。这里的目标是构造数组 **`A`** 的一个随机排列。

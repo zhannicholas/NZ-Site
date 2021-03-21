@@ -5,7 +5,7 @@ draft: false
 authors: ["zhannicholas"]
 toc: true
 categories:
-  - 环境配置
+  - 新手上路
 tags:
   - Python
 ---

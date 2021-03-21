@@ -3,9 +3,9 @@ title: "各种排序算法"
 date: 2018-05-30T18:55:31+08:00
 draft: false
 toc: true
-tags:
-  - 算法
 categories:
+  - 读书笔记
+tags:
   - C算法
 authors: ["zhannicholas"]
 ---

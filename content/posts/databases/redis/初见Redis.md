@@ -7,7 +7,7 @@ toc: false
 tags: 
   - Redis
 catagories:
-  - Redis
+  - DB
 ---
 
 > [Redis](https://redis.io)是一个位于内存中的数据结构存储系统，可用作数据库、缓存和消息中间件。它支持的数据结构有：string、hash、list、set、sorted set with range quries、bitmap、hyperloglogs、geospatial indexes with radius queries以及stream。Redis支持复制、Lua脚本、基于LRU的键驱逐、事务和不同级别的磁盘持久化，并通过哨兵和Redis集群的自动分区机制来保证高可用。

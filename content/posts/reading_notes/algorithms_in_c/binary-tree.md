@@ -4,9 +4,9 @@ date: 2018-06-02T10:07:28+08:00
 draft: false
 toc: true
 categories:
-  - C算法
+  - 读书笔记
 tags:
-  - 算法
+  - C算法
 authors: ["zhannicholas"]
 ---
 

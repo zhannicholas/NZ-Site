@@ -3,9 +3,10 @@ date: "2020-12-13T17:40:18+08:00"
 title: "Jedis"
 authors: ["zhannicholas"]
 categories:
-  - 数据库
+  - DB
 tags:
   - Redis
+  - Java
 draft: false
 toc: true
 ---

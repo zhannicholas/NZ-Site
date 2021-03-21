@@ -5,7 +5,7 @@ authors: ["zhannicholas"]
 categories:
   - 读书笔记
 tags:
-  - 读书笔记
+  - 多处理器编程的艺术
 draft: false
 toc: true
 ---

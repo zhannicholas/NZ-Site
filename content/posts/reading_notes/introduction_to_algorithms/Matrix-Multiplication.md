@@ -4,10 +4,10 @@ date: 2018-07-02T08:44:56+08:00
 draft: false
 mathjax: true
 toc: true
-categories:
-  - 算法导论
 tags:
-  - 算法
+  - 算法导论
+categories:
+  - 读书笔记
 authors: ["zhannicholas"]
 ---
 

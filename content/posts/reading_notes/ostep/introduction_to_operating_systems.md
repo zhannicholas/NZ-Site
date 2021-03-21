@@ -3,9 +3,9 @@ date: "2021-03-14T23:03:01+08:00"
 title: "Introduction to Operating Systems"
 authors: ["zhannicholas"]
 categories:
-  - OSTEP
+  - 读书笔记
 tags:
-  - OS
+  - OSTEP
 draft: false
 toc: true
 ---

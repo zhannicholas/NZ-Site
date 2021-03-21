@@ -7,7 +7,7 @@ author: ["zhannicholas"]
 tags: 
   - Hugo
 categories:
-  - 环境搭建
+  - 新手上路
 ---
 
 > 本文主要是想记录一下自己在win10下使用hugo和github pages搭建博客的过程，备忘。

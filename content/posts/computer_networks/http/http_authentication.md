@@ -3,7 +3,7 @@ date: "2020-12-13T17:14:07+08:00"
 title: "HTTP 认证"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
   - HTTP
 draft: false

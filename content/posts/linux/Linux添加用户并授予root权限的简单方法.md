@@ -5,6 +5,8 @@ draft: false
 authors: ["zhannicholas"]
 tags:
   - Linux
+categories:
+  - Linux
 ---
 
 # 快速方法

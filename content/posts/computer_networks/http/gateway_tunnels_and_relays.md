@@ -3,7 +3,7 @@ date: "2020-12-13T17:07:48+08:00"
 title: "网关、隧道和中继"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
   - HTTP
 draft: false

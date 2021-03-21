@@ -3,7 +3,7 @@ date: "2020-12-13T18:03:23+08:00"
 title: "About Jakarta EE"
 authors: ["zhannicholas"]
 categories:
-  - JakartaEE
+  - Java
 tags:
   - JakartaEE
 draft: false

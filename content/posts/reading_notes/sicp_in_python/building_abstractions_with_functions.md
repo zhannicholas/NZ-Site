@@ -5,7 +5,7 @@ authors: ["zhannicholas"]
 categories:
   - 读书笔记
 tags:
-  - 读书笔记
+  - SICP
 draft: false
 toc: true
 ---

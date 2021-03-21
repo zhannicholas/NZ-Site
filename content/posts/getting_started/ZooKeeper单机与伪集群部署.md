@@ -7,7 +7,7 @@ toc: true
 tags:
   - ZooKeeper
 catagories:
-  - ZooKeeper
+  - 新手上路
 ---
 
 > ZooKeeper是一个开源的分布式协调服务，可以为分布式计算环境维护配置信息、提供命名、同步、分组等服务。

@@ -3,7 +3,7 @@ title: "Java Web复习笔记"
 date: 2018-08-19T23:02:41+08:00
 draft: false
 categories:
-  - Java Web
+  - Java
 tags:
   - Java
 authors: ["zhannicholas"]

@@ -3,7 +3,7 @@ date: "2020-12-13T16:41:19+08:00"
 title: "Web缓存"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
   - HTTP
 draft: false

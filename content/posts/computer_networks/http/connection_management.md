@@ -3,7 +3,7 @@ date: "2020-12-13T17:05:53+08:00"
 title: "HTTP连接管理"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
   - HTTP
 draft: false

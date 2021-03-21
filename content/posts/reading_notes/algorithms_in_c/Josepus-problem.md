@@ -2,9 +2,9 @@
 title: "约瑟夫问题"
 date: 2018-05-27T11:35:18+08:00
 draft: false
-tags:
-  - 算法
 categories:
+  - 读书笔记
+tags:
   - C算法
 ---
 

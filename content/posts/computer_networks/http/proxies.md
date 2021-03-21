@@ -3,7 +3,7 @@ date: "2020-12-13T17:19:57+08:00"
 title: "代理"
 authors: ["zhannicholas"]
 categories:
-  - 计算机网络
+  - Networks
 tags:
   - HTTP
 draft: false

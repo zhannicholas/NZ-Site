@@ -3,7 +3,7 @@ date: "2020-12-13T17:41:46+08:00"
 title: "Redis Lua 脚本"
 authors: ["zhannicholas"]
 categories:
-  - 数据库
+  - DB
 tags:
   - Redis
 draft: false

@@ -3,7 +3,7 @@ date: "2020-12-13T18:04:42+08:00"
 title: "The Servlet Interface"
 authors: ["zhannicholas"]
 categories:
-  - JakartaEE
+  - Java
 tags:
   - JakartaEE
 draft: false
