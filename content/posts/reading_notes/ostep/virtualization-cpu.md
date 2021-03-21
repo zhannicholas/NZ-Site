@@ -4,9 +4,9 @@ title: "CPU 虚拟化"
 authors: ["zhannicholas"]
 mathjax: true
 categories:
-  - 
+  - OSTEP
 tags:
-  - 
+  - OSTEP
 draft: false
 toc: true
 ---

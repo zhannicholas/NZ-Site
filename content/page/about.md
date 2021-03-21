@@ -5,4 +5,4 @@ menu: main
 weight: -210
 ---
 
-Java Developer, Long-distance Runner, Cyclist
+Java Developer, Cyclist
