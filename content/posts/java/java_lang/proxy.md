@@ -13,9 +13,12 @@ toc: true
 > A proxy, in its most general form, is a class functioning as an interface to something else. The proxy could interface to anything: a network connection, a large object in memory, a file, or some other resource that is expensive or impossible to duplicate. In short, a proxy is a wrapper or agent object that is being called by the client to access the real serving object behind the scenes. Use of the proxy can simply be forwarding to the real object, or can provide additional logic. In the proxy, extra functionality can be provided, for example caching when operations on the real object are resource intensive, or checking preconditions before operations on the real object are invoked. For the client, usage of a proxy object is similar to using the real object, because both implement the same interface.
 
 ## 代理模式
-略。
+[设计模式读书笔记之代理模式](../../../../reading_notes/设计模式的艺术/设计模式的艺术读书笔记之十三代理模式/)
+
+在经典的设计模式种，对于每一个 `RealSubject` 类，都需要创建一个 `Proxy` 代理类，当 `RealSubject` 这种需要被代理的类变得很多时,就需要定义大量的 `Proxy` 类，局面很容易变得不可控。而 JDK 动态代理可以有效地解决这个问题。
 
 ## JDK 动态代理
+
 **`java.lang.reflect.Proxy`** 提供了在程序运行期间**动态**创建接口的实现类(即代理类 `proxy class` )的方法，因为代理类是在程序运行过程中动态创建的，所以又被称为动态代理类(`dynamic proxy class`)，被实现的接口被称为代理接口(`proxy interface`)，代理类的实例被称为代理实例(`proxy instance`)。
 
 ### **`InvocationHandler`** 接口
@@ -118,7 +121,7 @@ cglib method intercept end...
 ```
 这段代码里面用到了 **`Enhancer`** 类和 **`MethodInterceptor`** 接口。这两者的作用和JDK动态代理里面的 **`Proxy`** 和 **`InvocationHander`** 有些类似。`setSuperClass(Class superclass)` 告诉 **`Enhancer`** 去生成一个 `superclass` 的子类，而 `setCallback(Callback callback)` 告诉 **`Enhancer`** 该使用哪个 `callback` 来处理被代理类上的方法调用。**`MethodIntercepter`** 实现了 **`Callback`** 接口，允许我们对拦截的方法进行完全控制。
 
-## 参考文献
+## 参考资料
 1. [Proxy pattern](https://en.wikipedia.org/wiki/Proxy_pattern).
 2. [Dynamic Proxy Classes](https://docs.oracle.com/javase/8/docs/technotes/guides/reflection/proxy.html).
 3. [cglib: The missing manual](http://mydailyjava.blogspot.com/2013/11/cglib-missing-manual.html).
