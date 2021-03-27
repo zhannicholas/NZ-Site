@@ -9,17 +9,19 @@ tags:
 draft: fasle
 toc: true
 ---
+
 [Wikipedia](https://en.wikipedia.org/wiki/Proxy_pattern#Java) 中是这样描述 `Proxy` 的：
 > A proxy, in its most general form, is a class functioning as an interface to something else. The proxy could interface to anything: a network connection, a large object in memory, a file, or some other resource that is expensive or impossible to duplicate. In short, a proxy is a wrapper or agent object that is being called by the client to access the real serving object behind the scenes. Use of the proxy can simply be forwarding to the real object, or can provide additional logic. In the proxy, extra functionality can be provided, for example caching when operations on the real object are resource intensive, or checking preconditions before operations on the real object are invoked. For the client, usage of a proxy object is similar to using the real object, because both implement the same interface.
 
 ## 代理模式
+
 [设计模式读书笔记之代理模式](../../../../reading_notes/设计模式的艺术/设计模式的艺术读书笔记之十三代理模式/)
 
 在经典的设计模式种，对于每一个 `RealSubject` 类，都需要创建一个 `Proxy` 代理类，当 `RealSubject` 这种需要被代理的类变得很多时,就需要定义大量的 `Proxy` 类，局面很容易变得不可控。而 JDK 动态代理可以有效地解决这个问题。
 
 ## JDK 动态代理
 
-**`java.lang.reflect.Proxy`** 提供了在程序运行期间**动态**创建接口的实现类(即代理类 `proxy class` )的方法，因为代理类是在程序运行过程中动态创建的，所以又被称为动态代理类(`dynamic proxy class`)，被实现的接口被称为代理接口(`proxy interface`)，代理类的实例被称为代理实例(`proxy instance`)。
+**`java.lang.reflect.Proxy`** 提供了在程序运行期间 **动态** 创建接口的实现类(即代理类 `proxy class` )的方法，因为代理类是在程序运行过程中动态创建的，所以又被称为动态代理类(`dynamic proxy class`)，被实现的接口被称为代理接口(`proxy interface`)，代理类的实例被称为代理实例(`proxy instance`)。
 
 ### **`InvocationHandler`** 接口
 每个代理实例都有一个相关联的 `invocation handler` 对象，它实现了 **`InvocationHandler`** 接口。**`InvocationHandler`** 接口的定义如下：
@@ -33,6 +35,7 @@ public interface InvocationHandler {
 由于一个接口可能声明了多个方法，所以需要 `method` 参数给出将要在 `proxy` 上调用的方法，传递的参数列表为 `args`。
 
 ### 创建代理
+
 **`Proxy`** 类的静态方法 `newProxyInstance(ClassLoader loader, Class<?>[] interfaces, InvocationHandler h)` 可以被用来来创建一个代理实例。在使用时，我们需要提供加载代理类的 **`ClassLoader`**、代理类实现的所有接口组成的数组和一个`invocation handler`。
 
 下面是一个例子：
@@ -58,7 +61,12 @@ public class SubjectProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        return method.invoke(target, args);
+        // 执行业务逻辑之前的预处理逻辑……
+        // preprocess();
+        Object result = method.invoke(target, args);
+        // 执行业务逻辑之后的后置处理逻辑……
+        // postprocess();
+        return result;
     }
 }
 
