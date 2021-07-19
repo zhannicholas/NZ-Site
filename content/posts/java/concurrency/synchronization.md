@@ -13,6 +13,7 @@ toc: true
 Java语言提供了多种线程间通信机制（同步、while轮询、等待/通知、管道等等），其中最基础的通信方式就是 **同步（synchronization）**。Java中的同步是通过`monitor`来实现的，每个Java对象都有一个与之相关联的`monitor`，线程可以在其上进行加锁和释放锁的操作。同一时刻只能有一个线程持有某个`monitor`的锁，任何其它尝试给该`monitor`加锁的线程在获得锁之前都会被阻塞。一个线程可以多次给某个`monitor`加锁，这就是锁的重入，多次加锁对应着多次解锁，因为每次`unlock`操作只会消除一次`lock`的效应。
 
 ## `Synchronized` 关键字
+
 Java提供了一种内置的锁机制来支持原子性：同步代码块(Synchronized Block)。同步代码块就是用 `synchronized` 关键字修饰的代码块，它包括两个部分：作为锁的对象引用和由这个锁保护的代码块。
 
 用关键字 `synchronized` 修饰的方法是一种横跨整个方法体的同步代码块，其中该同步代码块的锁就是和该方法相关的对象（方法执行期间 `this` 关键字所代表的对象）。静态 `synchronized` 方法以 `Class` 对象为锁：
@@ -38,17 +39,22 @@ synchronized void instanceMethod() {
 
 ## Java对象头
 
-HotSpot 虚拟机对象的对象头部分包含两类信息：
+*[The Java® Virtual Machine Specification (Java SE 11 Edition)](https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-2.html#jvms-2.5)* 本身并没有规定程序运行时对象的具体内存布局，因此在不同的虚拟机实现中，对象和数组的内存布局可能有所不同。下面主要关注 HotSpot VM 这一 JVM 实现。
 
-* Mark Word。这一类用于存储对象自身的运行时数据，比如 HashCode、GC 分代年龄、锁状态标志、线程持有的锁、偏向线程 ID、偏向时间戳等，<u>在运行期间，Mark Work 里面存储的数据会随着锁标志的变化而变化</u>。
-* Klass Pointer。对象头的另一部分是类型指针，即对象指向它的类型元数据的指针，Java通过这个指针确定对象是哪个类的实例；
-此外，如果对象是一个 Java 数组，对象头中还必须有一块用于记录数组长度的数据，因为 JVM 可以通过普通 Java 对象的元数据信息确定 Java 对象的大小，但是数组的长度是不确定的。
+HotSpot VM 使用了一种名为 **[OOPs(Ordinary Object Pointers)](https://github.com/openjdk/jdk11/blob/master/src/hotspot/share/oops)** 的数据结构表示指向对象的指针。虚拟机使用 [oopDesc](https://github.com/openjdk/jdk11/blob/master/src/hotspot/share/oops/oop.hpp#L55) 这个特殊的数据结构来描述所有的指针（包括对象和数组）。每个 oopDesc 都包含以下信息：
+
+* [mark word](https://github.com/openjdk/jdk11/blob/master/src/hotspot/share/oops/markOop.hpp)。这一类用于存储对象自身的运行时数据，比如 HashCode、GC 分代年龄、锁状态标志、线程持有的锁、偏向线程 ID、偏向时间戳等，<u>在运行期间，Mark Work 里面存储的数据会随着锁标志的变化而变化</u>。
+* [klass word](https://github.com/openjdk/jdk11/blob/master/src/hotspot/share/oops/klass.hpp)。这一部分主要包含的是语言级别的类信息（比如类名、修饰符、父类信息等），即类型的元数据，Java 通过这个指针确定对象是哪个类的实例。该部分可能被压缩。
+
+对于 Java 对象（用 [instanceOop](https://github.com/openjdk/jdk11/blob/master/src/hotspot/share/oops/instanceOop.hpp) 表示）而言，对象头包括 mark word、klass word，可能还有对齐填充。
+
+对于 Java 数组（用 [arrayOop](https://github.com/openjdk/jdk11/blob/master/src/hotspot/share/oops/arrayOop.hpp) 表示）而言，对象头包括 mark word、klass word、` sizeof(int)` 大小（一般为 4 字节）的数组长度，可能还有对齐填充。数组的对象头中还必须有一块用于记录数组长度的数据，因为 JVM 可以通过普通 Java 对象的元数据信息确定 Java 对象的大小，但是数组的长度是不确定的。
 
 ## 锁的状态级升级过程
 
 锁一共有4种状态，级别从低到高分别是：无锁、偏向锁、轻量级锁和重量级锁。<u>锁的状态只支持升级，不支持降级</u>。
 
-以下是锁的四种状态下Mark Word的内容：
+以下是锁的四种状态下 markd word 的内容：
 
 | 锁状态   | 存储内容                                            | 最后两位（锁标志） |
 | -------- | --------------------------------------------------- | ------------------ |
