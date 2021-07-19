@@ -71,13 +71,13 @@ public ThreadPoolExecutor(int corePoolSize,
 * `maximumPoolSize`：池内所允许的最大线程数量。
 * `keepAliveTime`：当池内线程数量大于 `corePoolSize` 或当`allowCoreThreadTimeOut` 设置为 `true` 时，空闲线程在被销毁前的最大存活时间。
 * `unit`：指定 `keepAliveTime` 参数的单位。
-* `workQueue`：线程池执行的任务队列。当线程池中所有的线程都在处理任务时，新到来的任务就会在 `workQueue` 中排队等待执行。
+* `workQueue`：线程池执行的任务队列。当线程池中所有的线程都在处理任务时，新到来的任务就会在 `workQueue` 中排队等待执行。常用的任务队列有：有界队列 `ArrayBlockingQueue`、无界队列 `LinkedBlockingQueue` 和同步队列 `SynchronousQueue`（内部没有缓冲区）。
 * `threadFactory`：执行器创建新线程时所使用的工厂，池中所有的线程都由它创建（通过 `addWorker()` 方法）。默认的线程工厂是 `DefaultThreadFactory`，它为线程指定了名字和优先级。我们可以通过实现 `ThreadFactory` 接口来实现更多自定义操作。
 * `handler`：用来执行线程池的拒绝（饱和）策略。当 `workQueue` 满了并且线程池不能再创建线程来执行新提交的任务时，就会对新任务执行拒绝策略。拒绝策略其实是一种限流保护机制。
 
 此外，Java类库提供了一些灵活的线程池创建方案，可以通过 `Executors` 中的静态工厂方法来创建一个线程池：
-* `newFixedThreadPool()`。创建一个固定容量的线程池，每提交一个任务就创建一个线程，直到达到线程池的容量，这时线程池的规模将不再变化（在线程池关闭之前，若有线程因故终止，线程池将补充新的线程）。
-* `newCachedThreadPool()`。创建一个可缓存的线程池，如果线程池的当前规模超过了处理需求时，就回收空闲线程，而当需求增加时，就添加新的线程。它的特点在于线程池的规模几乎可以无限增加（实际上最大可以达到 `2^32 - 1`）。
+* `newFixedThreadPool()`。创建一个固定容量的线程池，每提交一个任务就创建一个线程，直到达到线程池的容量，这时线程池的规模将不再变化（在线程池关闭之前，若有线程因故终止，线程池将补充新的线程）。这种线程池一般适用于任务数量不均匀、对内存压力不敏感但对系统负载比较敏感的场景。
+* `newCachedThreadPool()`。创建一个可缓存的线程池，如果线程池的当前规模超过了处理需求时，就回收空闲线程，而当需求增加时，就添加新的线程。它的特点在于线程池的规模几乎可以无限增加（实际上最大可以达到 `2^32 - 1`），非常适合用来执行要求低延迟的短期任务。
 * `newSingleTreadExecutor()`。创建单个工作线程来执行任务，如果这个线程异常结束，则会创建另一个线程来替代。它能确保任务按照某种顺序串行执行（例如 FIFO、LIFO、优先级）。
 * `newScheduledTreadPool()`。创建固定容量的线程池，并且以延迟或者定时任务的方式来执行任务，具体的实现主要有 3 种：
     
@@ -92,7 +92,7 @@ public ThreadPoolExecutor(int corePoolSize,
     * `scheduleAtFixedRate` 表示以固定频率执行任务，以上即表示第一次延迟 10 秒后每隔 10 秒执行一次任务。
     * `scheduleWithFixedDelay` 和第二种类似，区别在于对周期的定义。`sheculeAtFixedRate` 以任务开始的时间为起点计时，时间到就执行下一次任务，而不管任务执行要多久。而 `scheduleWithFixedDelay` 以任务结束时间为下一次循环的时间七点开始计时。
 * `newSingleThreadScheduledExecutor()`。与 `newScheduledTreadPool()` 非常相似，它只是 `ScheduledThreadPool` 的一个特例，内部只有一个线程。
-* `newWorkStealingPool` 用于创建 `ForkJoinPool`。`ForkJoinPool` 也是线程池，但它与 `ThreadPoolExecutor` 有着很大不同。它非常适合用来执行可以产生子任务的任务，整个过程主要涉及两个步骤：首先是拆分任务（Fork）为子任务，然后是汇总（Join）子任务的结果得到任务的结果。此外，`ForkJoinPool` 的内部结构也与 `ThreadPoolExecutor` 大不相同：在 `ForkJoinPool` 中，每个线程都有自己独立的任务队列（是一个 Deque，用于存储分裂出来的子任务），而 `ThreadPoolExecutor` 中所有线程共用一个队列。
+* `newWorkStealingPool` 用于创建 `ForkJoinPool`。`ForkJoinPool` 也是线程池，但它与 `ThreadPoolExecutor` 有着很大不同。它非常适合用来执行可以产生子任务的任务（尤其是任务执行时长不均匀的场景），整个过程主要涉及两个步骤：首先是拆分任务（Fork）为子任务，然后是汇总（Join）子任务的结果得到任务的结果。此外，`ForkJoinPool` 的内部结构也与 `ThreadPoolExecutor` 大不相同：在 `ForkJoinPool` 中，每个线程都有自己独立的任务队列（是一个 Deque，用于存储分裂出来的子任务），而 `ThreadPoolExecutor` 中所有线程共用一个队列。
 
 阿里巴巴的《Java开发手册》中为了规避资源耗尽的风险，禁止使用 `Executors` 类去创建线程池。这是因为 `Executors` 创建出来的线程池有以下弊端：
 
