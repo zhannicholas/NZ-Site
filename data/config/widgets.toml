@@ -32,5 +32,5 @@ platforms = ["github","telegram","facebook","twitter","instagram","email","codep
 # Taxonomy Cloud Widget config
 [taxonomy_cloud]
 title = ""                            # default: Plural Name for `taxonomyCloud.taxonomy`
-taxonomy = "categories"                     # default: "tags"
+taxonomy = "tags"                     # default: "tags"
 shuffle = true                        # default: true
