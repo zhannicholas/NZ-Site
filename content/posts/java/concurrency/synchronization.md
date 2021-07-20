@@ -54,7 +54,7 @@ HotSpot VM 使用了一种名为 **[OOPs(Ordinary Object Pointers)](https://gith
 
 锁一共有4种状态，级别从低到高分别是：无锁、偏向锁、轻量级锁和重量级锁。<u>锁的状态只支持升级，不支持降级</u>。
 
-以下是锁的四种状态下 markd word 的内容：
+以下是锁的四种状态下 markd word 的简要内容：
 
 | 锁状态   | 存储内容                                            | 最后两位（锁标志） |
 | -------- | --------------------------------------------------- | ------------------ |
@@ -63,6 +63,7 @@ HotSpot VM 使用了一种名为 **[OOPs(Ordinary Object Pointers)](https://gith
 | 轻量级锁 | 指向栈中锁记录的指针                                | 00                 |
 | 重量级锁 | 指向互斥量（重量级锁）的指针                        | 10                 |
 
+mark word 的具体细节可以查看 [OpenJDK 源码](https://github.com/openjdk/jdk11/blob/master/src/hotspot/share/oops/markOop.hpp#L35)，32 位和 64 位模式下存储的内容是不一样的。
 ### 无锁
 
 不对资源进行锁定，所有的线程都能访问并修改共享资源，但每次只有一个线程能修改成功。
@@ -144,3 +145,4 @@ From    To      Target      Type
 2. 美团技术团队. [不可不说的Java“锁”事](https://tech.meituan.com/2018/11/15/java-lock.html).
 3. [Intrinsic Locks and Synchronization](https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html).
 4. [The Java® Virtual Machine Specification (Java SE 11 Edition)](https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-3.html#jvms-3.14).
+5. [Memory Layout of Objects in Java](https://www.baeldung.com/java-memory-layout).
