@@ -1,6 +1,6 @@
 ---
-title: Posts
-linkTitle: Posts
+title: 博客
+linkTitle: 博客
 menu: main
 weight: -250
 slug: posts
