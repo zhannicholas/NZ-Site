@@ -12,7 +12,9 @@ toc: true
 
 程序运行时会发生什么？
 
-一个正在运行的程序会做一件非常简单的事情：执行指令。处理器从内存中取出（fetch）一条指令，对其进行解码（decode），然后执行（execute）它。执行完这个指令后，处理器继续执行下一条指令，依此类推，直到程序执行完成。
+一个正在运行的程序会做一件非常简单的事情：执行指令。CPU 从内存中取出（fetch）一条指令，对其进行译码（decode），然后执行（execute）它，保存执行结果，紧接着又去取指令，译码，执行指令……，如此周而复始，反复循环，使得计算机能够自动地工作。除非遇到停机指令（程序执行完成），否则这个循环将一直进行下去。
+
+![程序的执行过程](/images/reading_notes/ostep/execution-process_of_a_procedure.jpg "程序的执行过程")
 
 ## 虚拟化
 
@@ -45,3 +47,7 @@ toc: true
 * 建立一些抽象，让系统方便易用。
 * 提供高性能（最小化操作系统的开销）。
 * 在应用程序之间以及在 OS 与应用程序之间提供保护。保护是操作系统和核心原理之一（即隔离），**让进程彼此隔离是保护的关键**。
+
+## 参考资料
+
+1. [CPU的工作过程](https://software.intel.com/content/www/cn/zh/develop/articles/book-processor-architecture_cpu_work_process.htm).
