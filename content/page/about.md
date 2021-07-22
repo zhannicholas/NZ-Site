@@ -1,7 +1,7 @@
 ---
 title: About
 description: About me
-menu: main
+menu: 
 weight: -210
 draft: true
 ---
