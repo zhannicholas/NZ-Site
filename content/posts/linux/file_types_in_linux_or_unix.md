@@ -17,7 +17,7 @@ toc: true
 1. 普通文件（regular file）
 2. 目录（directory）
 3. 符号链接（symbolic link）
-4. 管道（FIFO or named pipe）
+4. 命名管道（FIFO or named pipe）
 5. 套接字（socket）
 6. 字符设备（character special file）
 7. 块设备（block special file）
@@ -73,9 +73,27 @@ drwxr-xr-x 4 ubuntu ubuntu 4096 Feb 24 23:28 test
 
 符号链接指向计算机上的另一个普通文件或目录。链接文件分为硬链接（hard link）和软链接（soft link）两种，有点类似于 Windows 中的快捷方式。
 
-## 管道
+## 命名管道
 
-管道具备 FIFO 的特性，在 Linux/Unix 中常用于进程间通信。
+命名管道（named pipe）具备 FIFO 的特性，在 Linux/Unix 中常用于进程间通信。与传统的匿名管道（即我们常用的 `|` 命令）不同的是，命名管道使用到了文件系统，是一种文件类型。我们可以使用 `mkfifo` 命令创建命名管道，例如：
+
+```sh
+mkfifo my_pipe
+```
+
+使用 `ls -l` 命令可以发现输出结果的第一个字母是 `p`，同时文件大小是 0：
+
+```txt
+prw-r--r-- 1 ubuntu ubuntu    0 Jul 22 16:51 my_pipe
+```
+
+当执行 `cat my_pipe` 时，你会发现当前的终端一直处于等待状态。因为此时 my_pipe 中没有任何内容（你刚才也看到了，它的文件大小是 0）。此时，若我们另开一个终端写点东西到 my_pipe 中，例如：
+
+```sh
+echo "test" > my_pipe
+```
+这时，刚才执行的 `cat my_pipe` 就会返回，并打印出 `test`。
+
 
 ## 套接字
 
