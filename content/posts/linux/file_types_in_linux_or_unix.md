@@ -6,7 +6,7 @@ categories:
   - Linux
 tags:
   - Linux
-draft: true
+draft: false
 toc: true
 ---
 
