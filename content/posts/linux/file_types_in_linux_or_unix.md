@@ -12,12 +12,12 @@ toc: true
 
 在 Windows 中，文件类型是根据扩展名来确定的。例如：`a.pdf` 是一个 `pdf` 文件，而 `b.txt` 是一个 `txt` 文件。但在 Linux/Unix 中，文件类型与文件扩展名没有关系，它们是两个完全不同的概念。Linux/Unix 将一切都看作是文件，了解文件类型有助于我们对它们进行高效的管理。
 
-[POSIX](https://en.wikipedia.org/wiki/POSIX) 中定义了七种标准的文件类型：
+[POSIX](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap03.html#tag_03_164) 中定义了七种标准的文件类型：
 
 1. 普通文件（regular file）
 2. 目录（directory）
 3. 符号链接（symbolic link）
-4. 命名管道（FIFO or named pipe）
+4. 命名管道（FIFO special file or named pipe）
 5. 套接字（socket）
 6. 字符设备（character special file）
 7. 块设备（block special file）
@@ -63,19 +63,19 @@ drwxr-xr-x 4 ubuntu ubuntu 4096 Feb 24 23:28 test
 
 ## 普通文件
 
-普通文件也是 Linux/Unix 中最多的一类文件，包括文本文件、二进制文件、图片、视频、压缩文件等。
+[普通文件](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap03.html#tag_03_323) 是一个可随机访问的字节序列。它是 Linux/Unix 中最多的一类文件，包括文本文件、二进制文件、图片、视频、压缩文件等。
 
 ## 目录
 
-目录内可以包含普通文件、目录和各种特殊文件。
+[目录](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap03.html#tag_03_129)是一个包含[目录项](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap03.html#tag_03_130)的文件。目录项将文件名与文件（比如普通文件、目录和各种特殊文件）进行关联。但一个目录中不能有两个同名的目录项。
 
 ## 符号链接
 
-符号链接指向计算机上的另一个普通文件或目录。链接文件分为硬链接（hard link）和软链接（soft link）两种，有点类似于 Windows 中的快捷方式。
+符号链接指向计算机上的另一个普通文件或目录，它会影响到[路径名解析](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap04.html#tag_04_13)的过程。
 
 ## 命名管道
 
-命名管道（named pipe）具备 FIFO 的特性，在 Linux/Unix 中常用于进程间通信。与传统的匿名管道（即我们常用的 `|` 命令）不同的是，命名管道使用到了文件系统，是一种文件类型。我们可以使用 `mkfifo` 命令创建命名管道，例如：
+命名管道（named pipe）即具备 FIFO 特性的文件，在 Linux/Unix 中常用于进程间通信。与传统的匿名管道（即我们常用的 `|` 命令）不同的是，命名管道使用到了文件系统，是一种文件类型。我们可以使用 `mkfifo` 命令创建命名管道，例如：
 
 ```sh
 mkfifo my_pipe
@@ -97,15 +97,15 @@ echo "test" > my_pipe
 
 ## 套接字
 
-套接字文件可用于进程间信息的传递。在进程间通信方面，他和管道有一些相似之处，但管道是单向的，而套接字是双向全双工的。
+[套接字](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap03.html#tag_03_356)作为通信端点用于进程间通信，是一种有着特定用途的文件。在进程间通信方面，它和管道有一些相似之处，但管道是单向的，而套接字是双向全双工的。
 
 ## 字符设备
 
-字符设备提供串行输入流或者接收串行输出流，不具备随机访问的能力。
+[字符设备](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap03.html#tag_03_91) 提供串行输入流或者接收串行输出流，不具备随机访问的能力。例如终端和 `/dev/null` 都是字符设备文件。
 
 ## 块设备
 
-块设备具备随机访问的能力，`/dev/` 目录下的大多数文件都是块设备。
+[块设备](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/basedefs/V1_chap03.html#tag_03_79)具备随机访问的能力，`/dev/` 目录下的大多数文件都是块设备。
 
 ## 参考资料
 
