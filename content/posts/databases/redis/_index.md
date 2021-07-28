@@ -4,7 +4,7 @@ linkTitle: Redis
 menu:
   sidebar:
     name: Redis
-    parent: Database
+    parent: 数据库
 weight: -250
 slug: redis
 ---

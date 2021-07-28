@@ -4,7 +4,7 @@ linkTitle: 基础理论
 menu:
   sidebar:
     name: 基础理论
-    parent: Database
+    parent: 数据库
 weight: -250
 slug: fundamentals
 ---

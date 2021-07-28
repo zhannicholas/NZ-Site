@@ -1,6 +1,6 @@
 ---
-title: Database
-linkTitle: Database
+title: 数据库
+linkTitle: 数据库
 menu:
   - sidebar
 weight: -250
