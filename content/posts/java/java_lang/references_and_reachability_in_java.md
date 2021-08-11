@@ -24,15 +24,17 @@ JDK 1.2 之后，Java 将引用分为强引用（Strongly Reference）、软引�
 
 ## 对象可达性
 
-在进行垃圾回收之前，第一件事情就是找出垃圾。引用计数算法和可达性分析算法是两种常见的判断垃圾的方法，JVM 是通过分析对象的可达性来判断是否应该将其回收的。
+在进行垃圾回收之前，第一件事情就是找出垃圾。引用计数算法和可达性分析算法是两种常见的判断垃圾的方法，JVM 是通过分析对象的可达性来判断是否应该将其回收的。堆中的对象是可以相互引用的，根据对象类型的不同，引用的直接表现形式也不同。对于普通对象而言，引用就是对象的字段，而对于数组而言，引用就是数组的元素。此外，还有一些隐藏的引用，例如：每个对象实例都包含一个指向其类型（即实例对应的 Class）的引用，而每个 Class 又包含一个指向加载它的 ClassLoader 的引用。
+
+我们可以将对象之间的引用关系看作是一张有向图，图中的节点就是对象，而边就是对象间的引用。从源对象出发，若存在一条通往目标对象的路径，则目标对象对源对象来说是可达的，反之目标对象对源对象而言就是不可达的。
 
 ### GC Roots
 
-可达性分析算法的基本思路是通过一系列被称为“GC Roots”的根对象作为起始节点集，从这些结点开始，根据引用关系向下搜索，搜索路径即为引用链（Reference Chain），如果某个对象没有任何路径可以到达 GC Roots，则说明这个对象不再被使用，即为垃圾。
+可达性分析算法的基本思路是通过一系列被称为“GC Roots”的根对象作为起始节点集，从这些结点开始，根据引用关系向下搜索，搜索路径即为引用链（Reference Chain），如果没有任何路径可以到达 某个对象，则说明这个对象不再被使用，即为垃圾。
 
 ![](/images/java/java_lang/gc_roots_and_object_reachability.png)
 
-在 Java 中，可以作为GC Roots的对象有以下几种：
+在 Java 中，GC Root 是一个可以 **从堆外访问** 的对象，通常包括以下对象：
 
 * JVM 栈中引用的对象，比如线程方法的参数、局部变量、临时变量等；
 * 方法区中静态属性引用的对象，比如 Java 类的引用类型的静态变量；
@@ -42,7 +44,7 @@ JDK 1.2 之后，Java 将引用分为强引用（Strongly Reference）、软引�
 * 所有被同步锁（synchronized）持有的对象；
 * 反映 JVM 内部情况的 JMXBean、JVMTI 中注册的回调、Native 代码缓存等；
 
-Eclipse 的内存分析工具列举出了各种具体的 [GC Root](https://help.eclipse.org/2021-03/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fconcepts%2Fgcroots.html)
+Eclipse 的内存分析工具列举出了各种具体的 [GC Root](https://help.eclipse.org/2021-03/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fconcepts%2Fgcroots.html)，感兴趣的同学可以进一步了解。
 
 ### 对象的五种可达性
 
