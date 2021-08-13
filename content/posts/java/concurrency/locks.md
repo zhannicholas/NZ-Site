@@ -1,6 +1,6 @@
 ---
 date: "2020-12-13T18:29:44+08:00"
-title: "Locks"
+title: "锁"
 authors: ["zhannicholas"]
 categories:
   - Java

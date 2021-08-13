@@ -1,6 +1,6 @@
 ---
 date: "2020-12-13T18:35:11+08:00"
-title: "Java线程池"
+title: "线程池"
 authors: ["zhannicholas"]
 categories:
   - Java

@@ -25,7 +25,7 @@ static synchronized void staticMethod() {
 以下是以 `lock` 对象为锁：
 ```Java
 synchronized（lock）{
-	// 访问或修改由所保护的共享状态
+	// access or modify the shared state that is protected by the lock
 }
 ```
 而以下是以调用同步方法的<u>实例本身</u>为锁：
@@ -105,8 +105,57 @@ JVM中的同步操作是通过 `monitor` 的进入与退出来实现的。其实
 
 方法级别的同步操作是隐式实现的，不涉及 `monitorenter` 和 `monitorexit` 指令的使用，同步就是方法调用与返回的一部分。在运行时常量池中的 `method_info` 结构中，有一个叫做 `ACC_SYNCHRONIZED` 的标志位。方法调用指令会去检查这个标志位，当一个设置了 `ACC_SYNCHRONIZED` 的方法被调用时，执行线程会先进入 `monitor`，然后调用方法本身，最后不管方法是否正常执行完成都会退出 `monitor`。在执行线程拥有 `monitor` 的时间段内，其它线程是不可能再进入该 `monitor` 的。
 
+下面的 `SyncMethodDemo` 中包含两个同步方法，其中 `staticMethod` 是作用于类的静态同步方法，`instanceMethod` 是作用于对象实例的同步方法：
+
+```Java
+public class SyncMethodDemo {
+    static synchronized void staticMethod() {
+        System.out.println("static synchronized method");
+    }
+
+    synchronized void instanceMethod() {
+        System.out.println("synchronized instance method");
+    }
+}
+```
+
+使用 `javap -v -c SyncMethodDemo.class` 得到两个方法的字节码如下：
+
+```class
+static synchronized void staticMethod();
+    descriptor: ()V
+    flags: (0x0028) ACC_STATIC, ACC_SYNCHRONIZED
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #3                  // String static synchronized method
+         5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 3: 0
+        line 4: 8
+
+synchronized void instanceMethod();
+  descriptor: ()V
+  flags: (0x0020) ACC_SYNCHRONIZED
+  Code:
+    stack=2, locals=1, args_size=1
+        0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        3: ldc           #5                  // String synchronized instance method
+        5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        8: return
+    LineNumberTable:
+      line 7: 0
+      line 8: 8
+    LocalVariableTable:
+      Start  Length  Slot  Name   Signature
+          0       9     0  this   LSyncMethodDemo;
+
+```
+
+可以看到，在字节码中，方法加了一个 `ACC_SYNCHRONIZED` 标志。静态同步方法 `staticMethod` 和 `instanceMethod` 区别不大，只不过是多了一个 `ACC_STATIC` 标志。
 ### 同步代码块
-下面是取自 JVM 11 规范中给出的一个例子。同步代码块
+下面是 [JVMS11](https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-3.html#jvms-3.14) 中给出的一个例子。同步代码块
 ```java
 void onlyMe(Foo f) {
     synchronized(f) {

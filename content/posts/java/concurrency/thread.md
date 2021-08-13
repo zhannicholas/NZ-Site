@@ -1,6 +1,6 @@
 ---
 date: "2020-12-13T18:32:20+08:00"
-title: "Thread"
+title: "线程"
 authors: ["zhannicholas"]
 categories:
   - Java
