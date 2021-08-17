@@ -6,7 +6,7 @@ categories:
   - 分布式计算
 tags:
   - 分布式计算
-draft: true
+draft: false
 toc: true
 mathjax: true
 ---
