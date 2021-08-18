@@ -6,7 +6,7 @@ categories:
   - English
 tags:
   - English
-draft: true
+draft: false
 toc: true
 ---
 
@@ -39,4 +39,4 @@ PM = P.M. = Post Meridiem: after noon
 ## 参考资料
 
 1. 百度百科. [十二时辰制](https://baike.baidu.com/item/%E5%8D%81%E4%BA%8C%E6%97%B6%E8%BE%B0%E5%88%B6).
-2. Wikipedia. [](https://en.wikipedia.org/wiki/12-hour_clock).
+2. Wikipedia. [12-hour clock](https://en.wikipedia.org/wiki/12-hour_clock).
