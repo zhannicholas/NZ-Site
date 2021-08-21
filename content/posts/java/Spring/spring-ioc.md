@@ -13,6 +13,8 @@ toc: true
 
 Ioc（Inverse of Control），又叫 DI（Dependence Injection）。它是这样一个过程：对象声明自己的依赖，然后容器在创建 Bean 的时候注入这些依赖。如果不使用 IoC，我们在创建对象之前就需要先把对象的依赖创建出来，这个正向的过程会导致对象与对象之间的强耦合。如果反过来，对象不自己创建依赖，而是由 Spring 的 Ioc 容器自动装配，这就是控制反转。逆向的过程使得程序的结构变得更加灵活，没有强耦合，还有利于对象的复用。
 
+![Mindmap](/images/java/spring/spring-ioc-mindmap.png)
+
 ## Ioc 容器
 
 在 Spring 中，`org.springframework.context.ApplicationContext` 接口就是 IoC 容器的抽象表示，它负责 Bean 的实例化、配置以及组装。那么，IoC 容器是如何知道要管理哪些 Bean 呢？答案是配置元数据（Configuration Metadata）。配置元数据可以是 XML、注解，还可以是 Java 代码。
