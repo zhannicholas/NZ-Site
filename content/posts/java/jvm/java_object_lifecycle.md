@@ -1,5 +1,6 @@
 ---
 date: "2021-04-21T23:30:52+08:00"
+publishdate: "2021-08-20T22:35:02+08:00"
 title: "Java 对象的一生"
 authors: ["zhannicholas"]
 categories:
@@ -11,7 +12,7 @@ draft: false
 toc: true
 ---
 
-[The Truth About Garbage Collection](http://kwangshin.pe.kr/java/GC/JavaTM%20Platform%20Performance-%20Strategies%20and%20Tactics%20-%20Appendix%20A.pdf) 这篇文章挺好的，本文的很多内容也是基于这篇文章而来。
+[The Truth About Garbage Collection](http://kwangshin.pe.kr/java/GC/JavaTM%20Platform%20Performance-%20Strategies%20and%20Tactics%20-%20Appendix%20A.pdf) 这篇文章写得挺好的，本文的很多内容也是基于这篇文章而来。
 
 Java 是一门面向对象的编程语言，在程序的运行过程中，不断有新的对象被创建出来，也不断有对象被回收。JVM 中的对象从创建到回收，通常会经历以下大多数状态：
 
@@ -34,6 +35,25 @@ Java 是一门面向对象的编程语言，在程序的运行过程中，不断
 5. 执行构造函数的剩余部分
 
 这些操作的具体代价取决于 JVM 的实现，以及构造类的过程是如何实现的。对象被创建后，如果它被赋给某给变量（有变量引用了这个对象），它就会直接进入 In Use 状态。
+
+其实以上五个步骤可以分为两个大的步骤——实例化（Instantiation）和初始化（Initialization）。为了便于理解，我举一个例子。先定义一个类 `Bird`，它有一个 `name` 属性：
+```Java
+public class Bird {
+    private final String name;
+    public Bird(String name) {this.name = name;}
+}
+```
+当我们想创建一个 `Bird` 对象时，我们会怎么做？最简单最直接的方法当然是使用 `new` 关键字啦。比如：
+
+```Java
+Bird eagle = new Bird("eagle");
+```
+
+这行代码包含三个部分：
+
+1. 声明（Declaration）：`Bird eagle` 声明了一个类型为 `Bird` 的变量，变量名为 `eagle`。
+2. 实例化（Instantiation）：Java 使用 `new` 关键字创建新对象。`new` 先为新对象分配内存，然后返回那块内存的引用，这个过程就是对象的实例化。
+3. 初始化（Initialization）：`new` 会调用构造器 `Bird("eagle")`，构造器会初始化前面创建的新对象。
 
 ## In Use
 
@@ -191,3 +211,4 @@ no,i am dead : (
 
 1. [The Truth About Garbage Collection](http://kwangshin.pe.kr/java/GC/JavaTM%20Platform%20Performance-%20Strategies%20and%20Tactics%20-%20Appendix%20A.pdf).
 2. 周志明. 深入理解Java虚拟机（第3版）. 机械工业出版社, 2019.
+3. [Creating Objects](https://docs.oracle.com/javase/tutorial/java/javaOO/objectcreation.html).
