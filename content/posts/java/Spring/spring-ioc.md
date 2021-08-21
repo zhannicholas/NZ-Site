@@ -321,6 +321,167 @@ protected void invokeInitMethods(String beanName, Object bean, @Nullable RootBea
 
 ![Bean 的生命周期](/images/java/spring/bean-lifecycle.png "Bean 的生命周期")
 
+#### 其它 Aware 接口
+
+除了之前提到过的 `Aware` 接口，Spring 还给我们提供了很多其它的 `Aware` 接口。这些接口告诉 IoC 容器 Bean 需要对应的依赖。例如 `ApplicationContextAware` 允许 Bean 获得一个 `ApplicationContext` 的引用，`ResourceLoaderAware` 允许 Bean 获得一个 `ResourceLoader` 的引用。
+
+#### 一个例子
+
+纸上得来终觉浅，绝知此事要躬行。下面，让我们通过一个例子加深对 Bean 生命周期的理解。
+
+先定义一个 Bean 类，它实现了众多的接口，包含自定义的初始化方法和自定义的销毁方法，以及一个普通方法 `hello()`：
+
+```Java
+public class MySpringBean implements ApplicationContextAware, BeanNameAware,
+        BeanClassLoaderAware, BeanFactoryAware, InitializingBean, DisposableBean {
+
+    @Override
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        System.out.println("Executing setBeanClassLoader...");
+    }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        System.out.println("Executing setBeanFactory...");
+    }
+
+    @Override
+    public void setBeanName(String s) {
+        System.out.println("Executing setBeanName...");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("Executing destroy...");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("Executing afterPropertiesSet...");
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        System.out.println("Executing setApplicationContext...");
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("Executing @PostConstruct...");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("Executing @PreDestroy...");
+    }
+
+    public void customInitMethod() {
+        System.out.println("Executing custom init method...");
+    }
+
+    public void customDestroyMethod() {
+        System.out.println("Executing custom destroy method...");
+    }
+
+    public void hello() {
+        System.out.println("Hello, Spring!");
+    }
+}
+```
+
+然后定义一个 `BeanPostProcessor` 的实现类：
+```Java
+public class MyBeanPostProcessor implements BeanPostProcessor {
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("Executing postProcessBeforeInitialization of " + beanName + " ...");
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("Executing postProcessAfterInitialization of " + beanName + " ...");
+        return bean;
+    }
+}
+```
+再定义一个 `InstantiationAwareBeanPostProcessor` 的实现类：
+```Java
+public class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
+    @Override
+    public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+        System.out.println("Executing postProcessBeforeInstantiation of " + beanName + " ...");
+        return null;
+    }
+
+    @Override
+    public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
+        System.out.println("Executing postProcessAfterInstantiation of " + beanName + " ...");
+        return true;
+    }
+
+    @Override
+    public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        System.out.println("Executing postProcessProperties of " + beanName + " ...");
+        return pvs;
+    }
+}
+```
+以及一个配置类：
+```Java
+@Configuration
+public class MyLifeCycleConfiguration {
+    @Bean
+    public MyBeanPostProcessor myBeanPostProcessor() {
+        return new MyBeanPostProcessor();
+    }
+
+    @Bean
+    public MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor() {
+        return new MyInstantiationAwareBeanPostProcessor();
+    }
+
+    @Bean(initMethod = "customInitMethod", destroyMethod = "customDestroyMethod")
+    public MySpringBean mySpringBean() {
+        return new MySpringBean();
+    }
+}
+```
+最后写一个测试：
+```Java
+@SpringBootTest
+class BeanLifecycleApplicationTests {
+    @Autowired
+    private MySpringBean mySpringBean;
+
+    @Test
+    void testMySpringBeanLifecycle() {
+        mySpringBean.hello();
+    }
+}
+```
+
+现在运行测试，各个生命周期回调的执行步骤就一览无余啦。由于容器默认还会创建其它 Bean，数量还不少，影响我们观察。所以下面执行结果中只列出了与 `MySpringBean` 相关的执行结果：
+```txt
+Executing postProcessBeforeInstantiation of mySpringBean ...
+Executing postProcessAfterInstantiation of mySpringBean ...
+Executing postProcessProperties of mySpringBean ...
+Executing setBeanName...
+Executing setBeanClassLoader...
+Executing setBeanFactory...
+Executing setApplicationContext...
+Executing postProcessBeforeInitialization of mySpringBean ...
+Executing @PostConstruct...
+Executing afterPropertiesSet...
+Executing custom init method...
+Executing postProcessAfterInitialization of mySpringBean ...
+Hello, Spring!
+Executing @PreDestroy...
+Executing destroy...
+Executing custom destroy method...
+```
+完整代码已经放到 [Github](https://github.com/zhannicholas/java-demos/tree/main/bean-lifecycle)。
+
 ## 未完待续
 
 时间有限，先写到这里。写东西从来都不是一次性过程，要常看，常思考，常更新。
