@@ -1,5 +1,5 @@
 ---
-date: "2021-08-20T13:49:54+08:00"
+date: "2021-08-21T13:49:54+08:00"
 title: "Spring Ioc"
 authors: ["zhannicholas"]
 categories:
@@ -25,6 +25,26 @@ Ioc（Inverse of Control），又叫 DI（Dependence Injection）。它是这样
 
 Spring 的 Ioc 容器会读取配置元数据，然后根据配置元数据去实例化、配置和组装应用程序中的 Bean。在 Spring 的早期版本中，配置信息使用的是 XML。Spring 2.5 开始支持基于注解的配置，我们常用的 `@Required` 和 `@Autowired` 就是基于注解的配置。 Spring 3.0 开始支持基于 Java 代码的配置。现在，我们甚至可以同时使用 XML 和 注解去配置 Bean。
 
+实际上，在 IoC 容器内部，这些配置元数据会被解析成 `BeanDefinition` 对象，`BeanDefinition` 封装的就是 Bean 的定义和描述信息，比如类名、构造器参数、属性值、作用域、生命周期等，容器会根据 `BeanDefinition` 中封装的信息来创建 Bean。
+
+### 使用 BeanFactoryPostProcessor 对配置元数据进行个性化配置
+
+在 Spring 中，`BeanFactory` 提供了一种管理任何类型对象的高级机制，我们经常遇到的 `ApplicationContext` 则是它的一个子接口。若要用一句话来描述二者的差异，那就是：`BeanFactory` 提供配置框架和基本功能，`ApplicationContext` 则是添加了更多的企业级功能。
+
+`BeanFactoryPostProcessor` 允许我们对配置元数据（`BeanDefinition`）进行个性化配置。它与后面介绍的 `BeanPostProcessor` 功能类似，只不过后者的作用是对 Bean 本身进行个性化配置。接口定义如下：
+```Java
+public interface BeanFactoryPostProcessor {
+	/**
+	 * Modify the application context's internal bean factory after its standard
+	 * initialization. All bean definitions will have been loaded, but no beans
+	 * will have been instantiated yet. This allows for overriding or adding
+	 * properties even to eager-initializing beans.
+	 */
+	void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException;
+}
+```
+
+在 `postProcessBeanFactory()` 方法被调用前，所有的 Bean 定义信息都已经加载完毕。所以 `BeanFactoryPostProcessor` 可以在 Bean 实例化之前获取 Bean 的配置元数据，并对其进行修改。
 ## 依赖注入
 
 依赖注入主要有两种：
@@ -37,8 +57,8 @@ IoC 容器甚至支持两种注入方式的混用的情况，你可以先通过�
 Bean 的依赖项解析过程如下：
 
 * 容器被创建出来，通过描述 Bean 的配置元数据进行初始化，检验每个 Bean 的配置信息。配置元数据可以是 XML，也可以是注解和 Java 代码
-* 将每个 Bean 的依赖表示成属性、构造器参数或静态工厂方法的参数。这些依赖将会在 Bean 本身被创建的时候提供给它
-* 每个属性或构造器参数实际上是一个具体的值，或者指向容器内另一个 Bean 的引用
+* 对于每一个 Bean，它依赖会被表示成属性、构造器参数或静态工厂方法的参数。这些依赖将会在 Bean 被真正创建的时提供给它
+* 每个属性或构造器参数都是一个具体的值，或者指向容器内另一个 Bean 的引用
 * 对于那些是具体值的属性或构造器参数，相应的值会被转化成属性或构造器参数的实际类型
 
 ### 自动装配
@@ -54,7 +74,7 @@ Spring 提供了四种自动装配模式：
 
 ## Bean
 
-在 Spring 中，Bean 就是那些由 IoC 容器初始化、配置和组装的对象。IoC 容器实际上是 Bean 的管理者。我们在前面提到，开发者通过配置元数据告诉 IoC 容器 Bean 的相关信息。实际上，在 IoC 容器内部，这些配置元数据（即 Bean 的定义信息）会被解析成 `BeanDefinition` 对象，`BeanDefinition` 封装的就是 Bean 的定义和描述信息，比如构造器参数、属性值等，容器会根据 `BeanDefinition` 中封装的信息来创建 Bean。
+在 Spring 中，Bean 就是那些由 IoC 容器初始化、配置和组装的对象，IoC 容器就是 Bean 的管理者。我们在前面提到，开发者通过配置元数据告诉 IoC 容器 Bean 的相关配置信息，容器将配置元数据解析成 `BeanDefinition` 对象，再通过它创建 Bean。
 
 ### Bean 的命名
 
