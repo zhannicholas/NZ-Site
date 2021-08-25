@@ -6,6 +6,7 @@ categories:
   - Java
 tags:
   - JVM
+  - GC
 draft: false
 toc: true
 ---
