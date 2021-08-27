@@ -158,7 +158,7 @@ spring:
 ```sh
 $ java -jar app.jar --spring.profiles.active=dev
 ```
-还可以通过环境变量等多种方式指定生效的 profile。如果没有指定生效的 profile 文件，默认的 profile 就会被启用。
+还可以通过环境变量等多种方式指定生效的 profile。如果没有指定生效的 profile 文件，就会启用默认的 profile。
 
 ## 参考资料
 
