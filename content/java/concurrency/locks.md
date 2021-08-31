@@ -43,13 +43,9 @@ public class AtomicStampedReference<V> {
         }
     }
 
-    public boolean compareAndSet(V   expectedReference,
-                                 V   newReference,
-                                 int expectedStamp,
-                                 int newStamp) {
+    public boolean compareAndSet(V   expectedReference, V   newReference, int expectedStamp, int newStamp) {
         Pair<V> current = pair;
-        return
-            expectedReference == current.reference &&
+        return expectedReference == current.reference &&
             expectedStamp == current.stamp &&
             ((newReference == current.reference &&
               newStamp == current.stamp) ||
@@ -320,7 +316,7 @@ private void doReleaseShared() {
 
 在 `ReentrantLock` 的构造函数中提供了一个 `fair` 参数，用来指定所创建的锁是否公平，默认创建一个非公平的锁。在公平的锁上，线程将按照它们发出请求的顺序来获得锁，但在非公平的锁上，是允许“插队”的：当一个线程请求非公平的锁时，如果在发出请求的同时该锁的状态变为可用，那么这个线程将跳过队列中的所有等待线程并获得这个锁。
 
-在激烈竞争的情况下，非公平锁的性能高于公平锁的一个原因是：**在恢复一个被挂起的线程与该线程真正开始运行之间存在着严重的延迟，而使用非公平锁减少了线程上下文切换的次数**。
+在激烈竞争的情况下，非公平锁的性能高于公平锁的一个原因是：**在恢复一个被挂起的线程与该线程真正开始运行之间存在着严重的延迟，而使用非公平锁减少了线程上下文切换的次数**。虽然非公平锁带来了更高的性能，但可能导致线程饥饿。
 
 `ReentrantLock` 默认采用非公平锁：
 ```Java
@@ -386,9 +382,17 @@ final boolean nonfairTryAcquire(int acquires) {
 ```
 对比 `FairSync` 可以发现，`FairSync` 中的 `tryAcquire()` 方法仅多了一行：`!hasQueuedPredecessors()`。`hasQueuedPredecessor()` 方法用来查看队列中是否有比当前线程等待时间更久的线程，如果没有，就尝试一下是否能获取到锁，如果获取成功，则标记锁为已占用。
 
+这里有一个特例需要注意，`tryLock()` 方法不遵守我们设定的公平原则。因为它的源码是这样的：
+```java
+public boolean tryLock() {
+    return sync.nonfairTryAcquire(1);
+}
+```
+也就是说，即使我们设定锁为公平锁，如果在调用 `tryLock()` 时锁可用，就能立即获得锁，与前面是否有线程排队无关。
+
 ## ReadWriteLock
 
-`ReadWriteLock` 的接口定义如下：
+`ReadWriteLock` （读写锁）的接口定义如下：
 ```Java
 public interface ReadWriteLock {
 	Lock readLock();
@@ -397,7 +401,7 @@ public interface ReadWriteLock {
 ```
 `ReadWriteLock` 暴露了两个 `Lock` 对象，其中一个用于读操作，另一个用于写操作。要读取由 `ReadWriteLock` 保护的数据，必须先获得读锁，当需要修改 `ReadWriteLock` 保护的数据时，必须先获得写锁。
 
-在 `ReadWriteLock` 实现的加锁策略中，允许多个读操作同时进行（多个线程同时持有读锁），但每次只允许一个写操作（每次至多有一个线程持有写锁）。对于频繁读取的场景，`ReadWriteLock` 能够提高性能。
+在 `ReadWriteLock` 实现的加锁策略中，允许多个读操作同时进行（多个线程同时持有读锁），但每次只允许一个写操作（每次至多有一个线程持有写锁）。对于读多写少的场景，`ReadWriteLock` 能够提高性能。
 
 读写锁的获取规则如下：
 
@@ -405,12 +409,13 @@ public interface ReadWriteLock {
 * 如果一个线程持有读锁，那么此时其它线程必须等待当前线程释放读锁之后才能申请写锁。
 * 如果一个线程持有写锁，那么此时其它线程必须等待当前线程释放掉写锁之后才能申请读锁或写锁。
 
-总而言之，就是读可以并发进行，读写不能同时进行，多个线程不能同时写。
+简而言之，读可以并发进行，读写不能同时进行，多个线程不能同时写。
 
 ### ReentrantReadWriteLock
-`ReentrantReadWriteLock` 实现了 `ReadWriteLock` 接口并加入了一些监控锁内部工作状态的方法。
 
-`ReentrantReadWriteLock` 的实现依赖于 `AQS`，由于 `AQS` 内使用的是一个 `int` 类型的 `state` 变量来保存的同步状态，所以 `ReentrantReadWriteLock` 对 `state` 变量按位切割成了两部分使用：高16位表示读状态，低16位表示写状态。
+`ReentrantReadWriteLock` 实现了 `ReadWriteLock` 接口，并加入了一些监控锁内部工作状态的方法。
+
+`ReentrantReadWriteLock` 的实现依赖于 `AQS`，由于 `AQS` 内使用的是一个 `int` 类型的 `state` 变量来保存的同步状态，所以 `ReentrantReadWriteLock` 对 `state` 变量进行了按位切割，分两部分使用：高16位表示读状态，低16位表示写状态。
 
 `ReentrantReadWriteLock` 支持锁的降级（写锁到读锁），但不支持锁的升级。
 
