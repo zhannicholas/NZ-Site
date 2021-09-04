@@ -136,9 +136,15 @@ Hello, world!
 
 Cargo 还给我们提供了一个叫 `cargo check` 的命令，它会分析当前包内的代码并报告错误，但并不会产生可执行文件。通常情况下，`cargo check` 的执行速度比 `cargo build` 要快得多。如果你经常在编写代码的过程中通过编译来检查代码问题，那么 `cargo check` 绝对会成为你加速开发的好帮手。很多 Rustaceans 都在编写代码的过程中定期运行 `cargo check`，确保代码可以正常编译。当他们准备好运行可执行文件时，才会使用 `cargo build`。
 
-### 发布项目
+### profiles
 
-当你的项目准备好最终的发布时，你就可以使用 `cargo build --release` 来编译项目了，Cargo 会在编译发布版本的过程中进行一系列优化。这些优化会使得你的 Rust 程序运行得更快，但是会消耗更多的编译时间。在开发过程中，我们通常希望编译尽可能快，这样我们能够更快地进行验证，所以 `cargo build` 默认会生成开发用过程使用的可执行文件。而最终用户通常希望程序运行尽可能地快，这就是 `cargo build --realease` 花更多编译时间进行优化的原因。`cargo build --release` 最终编译出来的文件位于 `target/release` 目录下。
+Cargo 给我们提供了两种 profile，用于不同场景下的程序构建：
+* Default Profile：用于开发环境，`cargo build` 默认选项
+* --release Profile：用于发布项目，需要通过 `cargo build --release` 显式指出
+
+在开发过程中，我们通常希望编译尽可能快，这样我们能够更快地进行验证，所以 `cargo build` 默认会生成开发用过程使用的可执行文件。在我们使用 `cargo build --release` 构建发布项目时，Cargo 会在编译发布版本的过程中进行一系列优化。这些优化会使得你的 Rust 程序运行得更快，但是会消耗更多的编译时间。程序的最终用户通常希望程序运行尽可能地快，这正是是 `cargo build --realease` 花更多编译时间进行优化的原因。
+
+不同 profile 构建出来的最终文件存放位置是不一样的。`cargo build` 编译出来的文件位于 `target/debug` 目录下，而`cargo build --release` 编译出来的文件位于 `target/release` 目录下。
 
 
 ## 参考资料
