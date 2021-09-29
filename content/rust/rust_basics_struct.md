@@ -217,11 +217,6 @@ impl Rectangle {
 
 除了定义方法外，`impl` 还允许我们定义不带 `self` 参数的函数。这种函数被称为 **关联函数（associated function）**，因为它们与结构体本身相关联。关联函数不是方法，因为它不涉及任何结构体实例。我们从字符串字面量创建 `String` 的 `from` 函数就是一个关联函数。在调用关联函数时，需要使用操作符 `::`，例如：`let s = String::from("hello");`。
 
-
-
-
-
-
 ## 参考资料
 
 1. Steve Klabnik, Carol Nichols. [The Rust Programming Language](https://doc.rust-lang.org/stable/book/).
