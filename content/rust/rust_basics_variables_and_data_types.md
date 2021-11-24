@@ -72,6 +72,8 @@ const SQUARE = x * x;
 ```
 上面这段代码是无法正常编译的，因为 `x` 是变量，而 `SQUARE` 是常量，`x * x` 的值是在程序运行过程中计算出来的。
 
+此外，`static` 关键字也可以用来声明一个常量，使用 `static` 关键字声明的常量代表的是一个内存地址，它的生命周期为 `'static`，而 `const` 声明的常量代表的是一个值。[0246-const-vs-static](https://github.com/rust-lang/rfcs/blob/master/text/0246-const-vs-static.md) 描述了二者的不同。
+
 ### 隐藏
 
 我们可以多次定义一个同名的变量，后面定义的变量会隐藏（shadowing）它之前的同名变量，即程序只能看到最新一个同名变量的值。
@@ -105,6 +107,28 @@ let mut a = 1;
 a = "1";
 ```
 
+### 冻结（Freezing）
+
+当数据被绑定到不可变的同名变量上时，该数据会被冻结。被冻结的数据只有在超出不可变绑定的作用域之外才能被修改。例如：
+```rust
+fn main() {
+    let mut _mutable_integer = 7i32;
+    {
+        // Shadowing by immutable `_mutable_integer`
+        let _mutable_integer = _mutable_integer;
+
+        // Error! `_mutable_integer` is frozen in this scope
+        _mutable_integer = 50;
+        // FIXME ^ Comment out this line
+
+        // `_mutable_integer` goes out of scope
+    }
+
+    // Ok! `_mutable_integer` is not frozen in this scope
+    _mutable_integer = 3;
+}
+```
+
 ## 数据类型
 
 Rust 是一门 **静态类型** 语言，在编译期间就必须确定所有变量的类型。Rust 中的每一个变量的值都属于某一数据类型，Rust 通过数据类型得知变量的值是何种数据，进而决定如何处理这个值。
@@ -136,7 +160,7 @@ let guess: u32 = "42".parse().expect("Not a number!");  // "42".parse() 的结�
 
 其中，有符号整型以字母 `i` 开头，无符号整型以字母 `u` 开头。`i` 或 `u` 后面的数字即该类型所占的二进制位数。假设整型的长度为 `n` 位，则有符号整型能表示数值范围的区间是 $[-2^{n - 1}, 2^{n - 1} - 1]$，而无符号整型能表示数值范围区间是 $[0, 2^n - 1]$。例如，`i8` 可存储的数值范围是 [0, 255]，而 `u8` 可存储的数值范围是 [-128, 127]。表格中的 `isize` 和 `usize` 类型由运行程序的机器架构决定：对于 64 位架构的计算机来说，它们就是 64 位的，而对于 32 位架构的计算机来说，它们就是 32 位的。Rust 中默认的整型是 `i32`。
 
-除了将整数写成最常见的十进制形式外，Rust 还允许我们将数字写成十六进制、八进制等形式。为了便于阅读，我们不仅可以在数值后面跟上它的具体类型（比如 `58u8` 表示 `u8` 类型的数字 `58`），还可以使用下划线（`_`）对数字进行分隔（比如 `10_000` 就是数字 `10000`）。下面表格列出了 Rust 中的各种整数表示法：
+除了将整数写成最常见的十进制形式外，Rust 还允许我们将数字写成十六进制、八进制等形式。为了便于阅读，我们不仅可以在数值后面跟上它的具体类型（比如 `58u8` 表示 `u8` 类型的数字 `58`），还可以使用下划线（`_`）对数字进行分隔（比如 `10_000` 就是数字 `10000`）。下面表格列出了 Rust 中的各种整数表示法，除了默认的十进制表示法外，各个表示形式都有特定的前缀：
 
 | Number Literals | Example |
 |-----------------|---------|
@@ -170,7 +194,7 @@ Rust 中的布尔类型有两个可能的值：`true` 和 `false`。布尔类型
 
 #### 元组
 
-元组可以包含不同类型得值，其长度在指定后就不能修改。创建一个元组的方式很简单，将各个值用逗号分隔，放在小括号当中即可：
+元组是一个由多个值组成的集合，每个值的类型可以不同，其长度在指定后就不能修改。创建一个元组的方式很简单，将各个值用逗号分隔，放在小括号当中即可：
 ```rust
 let tup: (i32, f64, u8) = (500, 6.4, 1);
 ```
@@ -189,6 +213,19 @@ let z = tup.2;  // 1
 println!("x = {}, y = {}, z = {}", x, y, z);
 ```
 和大多数编程语言一样，Rust 中的下标也是从 0 开始的。
+
+元组甚至可以包含元组，例如：
+```rust
+let tuple_of_tuples = ((1u8, 2u16, 2u32), (4u64, -1i8), -2i16);
+```
+
+如果元组中只有一个值，那么末尾的那个逗号是不能省略的，否则编译器会认为那是一个字面量。
+```rust
+println!("A tuple: {:?}", (5,)); // A tuple: (5,)
+print!("An integer: {:?}", (5));  // An integer: 5
+```
+
+不包含任何值的元组（空元组）是一种特殊的数据类型——单元类型（unit type）。这种数据类型只有一个可能的值，即 `()`，它被称为单元值（unit value）。虽然单元值是一个元组，但是它并不属于复合类型，因为它并不包含多个值。
 
 #### 数组
 
@@ -216,6 +253,44 @@ let arr = [1; 3];
 ```
 以上代码声明了一个长度为 `3` 的数组，数组中所有元素都是 `1`。该写法等价于：`let arr = [1, 1, 1]`。
 
+### 自定义数据类型
+
+Rust 当然支持我们创建自定义的数据类型，创建自定义数据类型的主要途径有两种：
+* [使用 `enum` 定义枚举类](../rust_basics_enums_and_patterns_matching)
+* [使用 `struct` 定义结构体](../rust_basics_struct)
+
+### 类型转换
+
+#### 基本类型之间的类型转换
+
+Rust 是不允许基本类型的数据之间进行隐式类型转换的。不过，我们可以使用 `as` 关键字显式要求进行数据转换。例如：
+```rust
+let decimal = 6.5;
+// Error! No implicit conversion
+//  let integer: u8 = decimal;
+let integer = decimal as u8;
+let character = integer as char;
+```
+Rust 管基本类型数据之间的类型转换叫 Casting。
+#### 自定义类型数据之间的类型转换
+
+在 Rust 中，自定义类型数据之间的类型转换是通过使用 traits 实现的。一般情况下使用的 traits 是 [`From`](https://doc.rust-lang.org/std/convert/trait.From.html) 和 [`Into`](https://doc.rust-lang.org/std/convert/trait.Into.html)。如果转换可能失败，则使用 [`TryFrom`](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) 和 [`TryInto`](https://doc.rust-lang.org/std/convert/trait.TryInto.html) 会更合适。此外，数据类型和字符串之间的转换使用的 traits 是 [`FromStr`](https://doc.rust-lang.org/std/str/trait.FromStr.html) 和 [`ToString`](https://doc.rust-lang.org/std/string/trait.ToString.html)。
+
+Rust 管自定义类型数据之间的类型转换叫 Conversion。
+### 类型别名
+
+Rust 允许我们使用 `type` 关键字给已存在的数据类型设置新的名字（alias）。如果新的名字不是驼峰命名的，编译器会发出警告，但编译还是会通过。如果不想让编译器发出警告，可以使用 `#[allow(non_camel_case_types)]` 属性。类型别名并不是新的数据类型，它只是一个别名而已。类型别名主要用于减少样板代码，比如 `IoResult<T>` 就是 `Result<T, IoError>` 的一个别名。下面是使用类型别名的例子：
+```rust
+ype NanoSecond = u64;
+type Inch = u64;
+
+#[allow(non_camel_case_types)]
+type u64_t = u64;
+
+// NanoSecond, Inch and u64_t are the same type as u64
+```
+
 ## 参考资料
 
 1. Steve Klabnik, Carol Nichols. [The Rust Programming Language](https://doc.rust-lang.org/stable/book/).
+2. [Rust by Example](https://doc.rust-lang.org/stable/rust-by-example).
