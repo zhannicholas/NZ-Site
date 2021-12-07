@@ -1,6 +1,6 @@
 ---
 date: "2021-12-06T20:15:55+08:00"
-title: "Jit_compiler"
+title: "Java Performance: JIT Compiler"
 authors: ["zhannicholas"]
 categories:
   - 读书笔记
