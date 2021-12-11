@@ -41,9 +41,10 @@ toc: true
 
 ## Globbing
 
-Bash 本身并不能识别正则表达式，解释正则表达式的是一些像 `sed` 和 `awk` 这样的命令和工具。Shell 展开中有一种类型叫文件名展开（filename expansion），但展开的事情并不是 Bash 自己完成的，而是由一个叫做 `globbing` 的进程完成的。但是 globbing 本身并不能使用标准的正则表达式，它只能识别通配符 `*`、`?`、`[]` 和某些其它的特殊字符。需要注意的是：`*` 并不会匹配以 `.` 开头的文件名。
+Bash 本身并不能识别正则表达式，解释正则表达式的是一些像 `sed` 和 `awk` 这样的命令和工具。Shell 展开中有一种类型叫文件名展开（filename expansion），但展开的事情并不是 Bash 自己完成的，而是由一个叫做 `globbing` 的进程完成的。但是 globbing 本身并不能使用标准的正则表达式，它只能识别一些特殊字符（比如 `*`、`?`、`[]`）。这些特殊字符一般称为通配符（wildcards），也叫 *globbing* 或 *pattern matching*。需要注意的是：`*` 并不会匹配以 `.` 开头的文件名。
 
 ## 参考资料
 
 1. [Bash Guide for Beginners](https://tldp.org/LDP/Bash-Beginners-Guide/html/index.html).
-2. [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/index.html).4w
+2. [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/index.html).
+3. [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/).

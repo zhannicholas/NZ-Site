@@ -20,17 +20,19 @@ Shell 脚本是解释执行的，shell 从脚本中逐行读取命令，然后�
 
 Shell 有很多种，比如 sh（Bourne Shell）、bash（Bourne Again shell）、csh（C shell）、tcsh（TENEX C shell）、ksh（Korn shell）、tmux 等
 
-查看系统内已经有的 shell：`cat /etc/shells`
-查看当前用户默认的 shell：`cat /etc/passwd | grep $USER | awk 'BEGIN { FS=":" } { print $7 }`
+查看系统内已经有的 shell：`cat /etc/shells`。
+查看当前用户默认的 shell：`cat /etc/passwd | grep $USER | awk 'BEGIN { FS=":" } { print $7 }`。
 
 ## Bash
 
-绝大多数 Linux/Unix 系统默认的 shell 都是 bash，bash 与 sh 相兼容，但是能力更强。
+绝大多数 Linux/Unix 系统默认的 shell 都是 bash，bash 不仅兼容 sh，而且能力更强。
 
 ### Bash 启动时加载的文件
 
 当 bash 在不同的情况下被调用时（invoked），它会在启动时会读取并执行一些特定的文件，文件的读取顺序会在下面列出，如果某个文件不存在，bash 就会跳过它继续查找下一个文件。
+
 #### Invoked as an interactive login shell，or with `--login`
+
 交互式（interactive）bash 意味着我们可以输入命令，shell 通常会从它连接到的终端（terminal）读取命令，然后将执行结果输出到终端。而“login shell”则表示系统会在使用者使用 shell 之前对其进行身份的认证（通常要使用者提供用户名和密码）。这种情况下 bash 启动时读取的文件有：
 * /etc/profile
 * ~/.bash_profile or ~/.bash_login or ~/.profile：第一个存在的可读文件会被读取
@@ -82,3 +84,4 @@ Sha-Bang，又叫 Shebang、Hashbang，是一个由井号（sharp）和叹号（
 
 1. [Bash Guide for Beginners](https://tldp.org/LDP/Bash-Beginners-Guide/html/index.html).
 2. [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/index.html).
+3. [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/).

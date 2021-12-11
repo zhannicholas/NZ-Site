@@ -72,3 +72,4 @@ InputComesFromHERE
 
 1. [Bash Guide for Beginners](https://tldp.org/LDP/Bash-Beginners-Guide/html/index.html).
 2. [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/index.html).
+3. [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/).
