@@ -115,7 +115,7 @@
     const map = new BMap.Map('map');
     // map.centerAndZoom("成都", 1);
     map.enableScrollWheelZoom();
-    map.disableDoubleClickZoom();
+    // map.disableDoubleClickZoom();
     //单击获取经纬度
     map.addEventListener("click", function (e) {
         document.querySelector("#current-lon-lat").innerHTML = "{longitude: " + e.point.lng + ", latitude: " + e.point.lat + "}";
